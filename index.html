@@ -16,19 +16,18 @@
     </div>
     <script>
     function jsonFlickrApi(result){
-      console.log(result);
-      console.log(result.photos.photo[0]);
-      var url = "http://farm" + result.photos.photo[0].farm + ".staticflickr.com/" + result.photos.photo[0].server + "/" + result.photos.photo[0].id + "_" + result.photos.photo[0].secret + ".jpg";
-      $('.innner').append('<img class="getImg" src="' + url + '"><br>');
+      console.log(result.photos.photo.length);
+      for(var i in result.photos.photo){
+        var url = "http://farm" + result.photos.photo[i].farm + ".staticflickr.com/" + result.photos.photo[i].server + "/" + result.photos.photo[i].id + "_" + result.photos.photo[i].secret + ".jpg";
+        $('.innner').append('<img class="getImg" src="' + url + '"><br>');
+      }
     }
     function btnSearch(){
-    //var result =
     $.ajax({
       type: 'GET',
       dataType: 'jsonp',
-      url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=cat&format=json&api_key=f5f4bca6313c7c9f2a819f01815c893a',
+      url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=animal&format=json&api_key=f5f4bca6313c7c9f2a819f01815c893a',
       success: function(data) {
-        //return data;
         console.log("ファイルの取得に成功しました");
         console.log(data);
       },
@@ -36,10 +35,7 @@
         console.log( "何らかの理由で失敗しました");
       }
     });
-    //console.log(result);
-
   }
     </script>
-
   </body>
 </html>
