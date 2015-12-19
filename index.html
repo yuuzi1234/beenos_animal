@@ -15,20 +15,23 @@
 
     <script>
     function btnSearch(){
+    var result =
     $.ajax({
       type: 'GET',
+      dataType: 'json',
       url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=cat&format=json&api_key=f5f4bca6313c7c9f2a819f01815c893a',
-      dataType: 'html',
       success: function(data) {
+        return data;
         //取得成功したら実行する処理
         console.log("ファイルの取得に成功しました");
         console.log(data);
       },
       error:function() {
         //取得失敗時に実行する処理
-        console.log("何らかの理由で失敗しました");
+        return "何らかの理由で失敗しました";
       }
     });
+    console.log(result);
   }
     </script>
 
