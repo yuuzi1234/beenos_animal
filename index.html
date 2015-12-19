@@ -5,37 +5,46 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <title>動物の画像一覧を表示するアプリケーション</title>
   </head>
+
   <body>
     <h1>
       動物の画像一覧を表示するアプリケーション
     </h1>
+
     <p>
       <input type="button" value="検索" onclick="btnSearch()">
     </p>
+
     <div class="innner">
     </div>
+
     <script>
     function jsonFlickrApi(result){
-      console.log(result.photos.photo.length);
-      for(var i in result.photos.photo){
-        var url = "http://farm" + result.photos.photo[i].farm + ".staticflickr.com/" + result.photos.photo[i].server + "/" + result.photos.photo[i].id + "_" + result.photos.photo[i].secret + ".jpg";
+      var imageObject = result.photos.photo
+      for(var i in imageObject){
+        var farm    = imageObject[i].farm;
+        var server  = imageObject[i].server;
+        var id      = imageObject[i].id;
+        var secret  = imageObject[i].secret;
+        var url     = "http://farm" + farm + ".staticflickr.com/" + server + "/" + id + "_" + secret + ".jpg";
         $('.innner').append('<img class="getImg" src="' + url + '"><br>');
       }
     }
+
     function btnSearch(){
-    $.ajax({
-      type: 'GET',
-      dataType: 'jsonp',
-      url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=animal&format=json&api_key=f5f4bca6313c7c9f2a819f01815c893a',
-      success: function(data) {
-        console.log("ファイルの取得に成功しました");
-        console.log(data);
-      },
-      error:function() {
-        console.log( "何らかの理由で失敗しました");
-      }
-    });
-  }
+      $.ajax({
+        type: 'GET',
+        dataType: 'jsonp',
+        url: 'https://api.flickr.com/services/rest/?method=flickr.photos.search&tags=animal&format=json&api_key=f5f4bca6313c7c9f2a819f01815c893a',
+        success: function(data){
+          console.log("ファイルの取得に成功しました");
+        },
+        error:function(){
+          console.log("何らかの理由で失敗しました");
+        }
+      });
+    }
     </script>
+
   </body>
 </html>
